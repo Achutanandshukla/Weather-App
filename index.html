@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather app</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/e905deb84d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="enter city name" spellcheck="false">
+            <button>
+                <img width="30" src="https://www.pinclipart.com/picdir/big/15-153180_search-button-search-symbol-svg-clipart.png  ">
+            </button>
+        </div>
+        <div class="weather">
+            <img  width ="70" height=""src="https://th.bing.com/th/id/R.1c0861f3cb7c133345601bd97f809fe0?rik=ieqDQSFI9P5uEg&riu=http%3a%2f%2fclipartmag.com%2fimages%2fanimated-pictures-of-the-sun-50.jpg&ehk=jolo75XWEm%2bklg6gVF54s649u%2fK11xNALjbOTMlURUk%3d&risl=&pid=ImgRaw&r=0"class="weather-icon">
+            <h1 class="temp"> 22 °C</h1>
+            <h2 class="city">kanpur</h2>
+            <div class="details">
+                <div class="col">
+                      <img src="https://static.vecteezy.com/system/resources/previews/000/442/113/original/humidity-vetor-icon-vector.jpg" width="25">  
+                      <i class="fa-solid fa-droplet-percent"></i>
+                      <div>
+                        <p class="humidity">50%</p>
+                        <p>humdity</p>
+                    </div>
+                    </div>
+                    <div class="col">
+                        <!-- <img src="https://static.vecteezy.com/system/resources/previews/000/442/113/original/humidity-vetor-icon-vector.jpg" width="25">   -->
+                        <i class="fa-solid fa-wind fa-2xl"></i>
+                        <div>
+                          <p class="wind">12 km/hr</p>
+                          <p>wind-speed</p>
+                      </div>
+                      </div>
+            </div>
+                
+          
+        </div>
+    </div>
+    <script>
+        const apiKey="48b36e987733b3ad40fe9f5067f62f24";
+        const searchBox =document.querySelector(".search input");
+        const searchBtn =document.querySelector(".search button");
+        var city = "Kanpur"
+        searchBtn.addEventListener("click",()=>{
+            city = searchBox.value
+            checkWeather(city);
+        })
+        async function checkWeather(city){
+            const apiUrl="https://api.openweathermap.org/data/2.5/weather?units=metric&q="+city+"&appid="+apiKey;
+            // https://api.openweathermap.org/data/2.5/weather?units=metric&q=kanpur&appid=48b36e987733b3ad40fe9f5067f62f24
+            const response=await fetch(apiUrl);
+            var data = await response.json();
+            console.log(data);
+
+            document.querySelector(".city").innerHTML =data.name;
+            document.querySelector(".temp").innerHTML =data.main.temp +" °C";
+            document.querySelector(".humidity").innerHTML =data.main.humidity+"%";
+            document.querySelector(".wind").innerHTML =data.wind.speed+" km/hr";
+        }
+        
+        
+    </script>
+</body>
+</html>
